@@ -1,4 +1,8 @@
-#[repr(u8)]
+pub enum Color {
+    White = 1,
+    Black = 0,
+}
+
 pub enum PieceType {
     Pawn = 0,
     Knight = 1,
@@ -8,14 +12,24 @@ pub enum PieceType {
     King = 5,
 }
 
-#[repr(u8)]
-pub enum Color {
-    White = 1,
-    Black = 0,
+impl Piece {
+    pub const fn new(piece_type: PieceType, color: Color) -> Self {
+        Piece { piece_type, color }
+    }
+}
+pub struct Piece {
+    piece_type: PieceType,
+    color: Color,
 }
 
-#[derive(Clone, Copy)]
-pub struct Piece {
-    pub piece_type: PieceType,
-    pub color: Color,
+// u8 for piece value for evaluation, not the best but it works
+const fn piece_value(kind: PieceType) -> u16 {
+    match kind {
+        PieceType::Pawn => 100,
+        PieceType::Knight => 300,
+        PieceType::Bishop => 300,
+        PieceType::Rook => 500,
+        PieceType::Queen => 900,
+        PieceType::King => 2000,
+    }
 }
