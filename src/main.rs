@@ -3,4 +3,6 @@ mod evaluation;
 mod search;
 mod uci;
 
-fn main() {}
+fn main() {
+    uci::run();
+}
